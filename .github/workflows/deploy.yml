@@ -1,0 +1,53 @@
+# .github/workflows/deploy.yml
+name: Deploy Vite Project to GitHub Pages
+
+on:
+  # Запускаємо workflow при пуші в гілку main
+  push:
+    branches:
+      - main
+  # Дозволяємо ручний запуск
+  workflow_dispatch:
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    # Визначаємо дозволи
+    permissions:
+      contents: write # Для запису у гілку gh-pages
+      pages: write # Для використання GitHub Pages
+      id-token: write # Для OIDC
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+        with:
+          # Завантажуємо повну історію для gh-pages action
+          fetch-depth: 0
+
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Рекомендована версія Node.js
+          cache: "npm"
+
+      - name: Install dependencies 📦
+        run: npm install
+
+      - name: Build project 🏗️
+        # Запускаємо вашу оновлену команду збірки
+        run: npm run build
+
+      - name: Setup Pages 🛠️
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact ⬆️
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Папка, що містить готові статичні файли
+          path: "./dist"
+
+      - name: Deploy to GitHub Pages 🚀
+        id: deployment
+        uses: actions/deploy-pages@v4
