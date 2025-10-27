@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #383131;
+}
+
+.container {
+    width: 402px;
+    height: 302px;
+    margin: 50px auto;
+
+    border: 1px solid #2b2727;
+    border-radius: 10px;
+    
+    position: relative;
+
+    overflow: hidden;
+    
+}
+
+.logo-ods {
+    width: 150px;
+    height: 150px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    animation: move-corners 10s infinite linear alternate;
+    border-radius: 40%;
+    border: 1px solid #1b1212;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+@keyframes move-corners {
+
+    0% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(calc(300px - 50px), 0);
+    }
+    50% {
+        transform: translate(calc(300px - 50px), calc(200px - 50px));
+    }
+    75% {
+        transform: translate(0, calc(200px - 50px));
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
