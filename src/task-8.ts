@@ -5,7 +5,7 @@ interface Post {
   title: string;
   body: string;
 }
-async function fetchPostsTyped() {
+async function fetchPostsTyped() : Promise<Post[]> {
   const response = await axios.get<Post[]>(
     'https://jsonplaceholder.typicode.com/posts'
   );
